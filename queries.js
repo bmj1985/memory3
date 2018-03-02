@@ -1,14 +1,32 @@
-const database = require("./database-connection");
+const database = require('./database-connection');
 
 module.exports = {
-    list(){
+    returnFirstItem(arr) {
+        return arr[0];
     },
-    read(id){
+    list() {
+        return database('game');
     },
-    create(game){
+    read(id) {
+        return database('game')
+            .where('id', id);
     },
-    update(id, game){
+    create(game) {
+        return database('game')
+            .insert(game)
+            .returning('*')
+            .then(this.returnFirstItem);
     },
-    delete(id){
-    }
+    update(id, game) {
+        return database('game')
+            .update(game)
+            .where('id', id)
+            .returning('*')
+            .then(this.returnFirstItem);
+    },
+    delete(id) {
+        return database('game')
+            .delete()
+            .where('id', id);
+    },
 };
