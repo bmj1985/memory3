@@ -4,7 +4,7 @@ exports.up = (knex, Promise) => {
     table.increments('id').primary();
     table.string('name');
     table.string('developer');
-    table.float('rating', 3, 1);
+    table.float('rating');
   })
 };
 
